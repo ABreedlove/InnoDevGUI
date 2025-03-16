@@ -1,0 +1,88 @@
+# Streamlit-Vis-Network Component Information
+
+## Directory Structure
+```
+streamlit_vis/
+├── __init__.py              # Component initialization and vis_network function
+├── build/                   # Built React component (generated)
+│   ├── static/
+│   │   ├── css/
+│   │   └── js/
+│   └── index.html
+├── frontend/
+│   ├── node_modules/        # Node dependencies (generated)
+│   ├── public/
+│   │   └── index.html      # HTML template
+│   ├── src/
+│   │   ├── index.tsx       # React entry point
+│   │   └── VisNetwork.tsx  # Main React component
+│   ├── package.json        # Node dependencies and scripts
+│   ├── package-lock.json   # Locked dependencies (generated)
+│   └── tsconfig.json       # TypeScript configuration
+├── setup.py                # Python package setup
+└── MANIFEST.in             # Package data inclusion rules
+```
+
+## Core Functionality
+- Network topology visualization using Vis.js
+- Canvas-based background image support that syncs with viewport
+- Position persistence through local storage integration
+- SNMP device management integration
+- Interactive node dragging and selection
+- Background image panning/zooming that maintains device positions
+- Support for mapping use cases with fixed device positions
+
+## Build and Install Instructions
+```bash
+# Initial setup
+cd streamlit_vis/frontend
+npm install
+
+# Build frontend
+npm run build
+
+# Move build folder
+# Delete any existing build folder in streamlit_vis/
+# Move frontend/build to streamlit_vis/
+
+# Install component
+cd ..
+pip install -e .
+```
+
+## Key Component Files
+1. VisNetwork.tsx - Core React component handling:
+   - Network visualization
+   - Background image rendering
+   - Viewport synchronization
+   - Node interaction
+
+2. __init__.py - Streamlit component interface:
+   - Component registration
+   - Props handling
+   - Default options
+
+## Dependencies
+- React
+- Vis.js Network
+- Streamlit
+- TypeScript
+- Canvas API for background rendering
+
+## Common Issues and Solutions
+- If background image doesn't load, check data URL formatting
+- If positions don't persist, verify local storage integration
+- If viewport sync issues occur, check canvas rendering loop
+
+## Integration with gui.py
+The component integrates with:
+- Local storage system
+- SNMP device management
+- Background image upload handling
+- Node position persistence
+
+For future feature additions or modifications, ensure:
+1. Canvas-based background remains synced with viewport
+2. Node positions stay fixed relative to background unless moved
+3. Proper cleanup of animation frames and resources
+4. Consistent error handling and logging

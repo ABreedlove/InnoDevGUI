@@ -1,0 +1,7 @@
+MANIFEST.in
+setup.py
+streamlit_vis_network.egg-info/PKG-INFO
+streamlit_vis_network.egg-info/SOURCES.txt
+streamlit_vis_network.egg-info/dependency_links.txt
+streamlit_vis_network.egg-info/requires.txt
+streamlit_vis_network.egg-info/top_level.txt

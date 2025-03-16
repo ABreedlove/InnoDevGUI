@@ -1,0 +1,153 @@
+# SNMP Device Manager - Visual Network Component Implementation
+
+## Project Structure
+```
+project_root/
+├── .venv/
+├── streamlit_vis/              # Custom Vis.js Network Component
+│   ├── __init__.py            # Component initialization and vis_network function
+│   ├── build/                 # Built React component (generated)
+│   │   ├── static/
+│   │   │   ├── css/
+│   │   │   └── js/
+│   │   └── index.html
+│   ├── frontend/
+│   │   ├── node_modules/      # Node dependencies (generated)
+│   │   ├── public/
+│   │   │   └── index.html    # HTML template
+│   │   ├── src/
+│   │   │   ├── index.tsx     # React entry point
+│   │   │   └── VisNetwork.tsx # Main React component
+│   │   ├── package.json      # Node dependencies and scripts
+│   │   ├── package-lock.json # Locked dependencies (generated)
+│   │   └── tsconfig.json     # TypeScript configuration
+│   ├── setup.py              # Python package setup
+│   └── MANIFEST.in           # Package data inclusion rules
+├── gui.py                     # Main Streamlit application
+├── db_handler.py             # SQLite database handler
+└── topology.db              # SQLite database file (generated)
+```
+
+## Major Implementations
+
+### 1. Position Persistence via SQLite
+- Created DatabaseHandler class for position persistence
+- Stores device positions between sessions
+- Maintains viewport state
+- Handles background image storage
+- Tables:
+  - devices (node_id, name, ip, is_snmp, community, version, position_x, position_y)
+  - settings (key, value) for global settings/background image
+
+### 2. Vis.js Network Component
+- Custom Streamlit component using Vis.js
+- Features:
+  - Canvas-based background image rendering
+  - Viewport state persistence
+  - Position synchronization
+  - Interactive device movement
+  - Background image panning/zooming that maintains relative device positions
+
+### 3. Background Image Handling
+- Canvas-based rendering for smooth scaling
+- Viewport synchronization
+- Form-based upload to prevent infinite loops
+- Database storage for persistence
+- Position-aware rendering relative to viewport
+
+### 4. Component Build Process
+```bash
+# Initial setup
+cd streamlit_vis/frontend
+npm install
+
+# Build frontend
+npm run build
+
+# Move build directory
+# Move frontend/build to streamlit_vis/
+
+# Install component
+cd ..
+pip install -e .
+```
+
+### 5. Key Implementations
+
+#### Viewport State Management
+- Maintains viewport position and scale between page switches
+- Handles device position persistence
+- Prevents unwanted position resets
+- Initializes viewport only on first load
+
+#### Database Integration
+```python
+# Initialize database
+db = DatabaseHandler()
+
+# Save device position
+db.save_device_position(node_id, position['x'], position['y'])
+
+# Get device position
+position = db.get_device_position(node_id)
+```
+
+#### React Component Structure
+- Uses TypeScript for type safety
+- Maintains viewport state
+- Handles canvas rendering
+- Manages device interactions
+
+### 6. Core Dependencies
+- React 18.2.0
+- Vis.js Network 9.1.6
+- Streamlit
+- SQLite3
+- TypeScript 4.9.5
+
+### 7. Notable Changes
+- Replaced Cytoscape with Vis.js Network
+- Added SQLite database for state persistence
+- Improved background image handling
+- Enhanced position persistence
+- Added viewport state management
+- Fixed viewport reset issues
+- Optimized component performance
+
+### 8. Current Feature State
+- Device positions persist between sessions
+- Viewport state maintains between page switches
+- Background image properly syncs with viewport
+- Devices maintain positions relative to background
+- Form-based background image upload prevents loops
+- Proper cleanup of React resources
+
+### 9. Issues Resolved
+- Position persistence between page switches
+- Background image upload infinite loops
+- Viewport reset problems
+- Position reset on page navigation
+- Database integration issues
+- Component performance optimization
+
+### 10. Usage Notes
+- The component requires proper database initialization
+- Device positions are automatically synced
+- Viewport state is preserved between sessions
+- Background images are stored in the database
+- Component properly cleans up resources
+
+### 11. Integration Notes
+When integrating this into a new project:
+1. Ensure proper database setup
+2. Include all required dependencies
+3. Follow build process exactly
+4. Maintain directory structure
+5. Initialize database handler at app start
+
+Remember to:
+- Keep this document updated with changes
+- Maintain type safety in TypeScript
+- Follow proper build procedures
+- Handle database migrations if needed
+- Test position persistence thoroughly

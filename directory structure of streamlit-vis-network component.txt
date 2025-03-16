@@ -1,0 +1,19 @@
+streamlit_vis/
+├── __init__.py              # Component initialization and vis_network function
+├── build/                   # Built React component (generated)
+│   ├── static/
+│   │   ├── css/
+│   │   └── js/
+│   └── index.html
+├── frontend/
+│   ├── node_modules/        # Node dependencies (generated)
+│   ├── public/
+│   │   └── index.html      # HTML template
+│   ├── src/
+│   │   ├── index.tsx       # React entry point
+│   │   └── VisNetwork.tsx  # Main React component
+│   ├── package.json        # Node dependencies and scripts
+│   ├── package-lock.json   # Locked dependencies (generated)
+│   └── tsconfig.json       # TypeScript configuration
+├── setup.py                # Python package setup
+└── MANIFEST.in             # Package data inclusion rules
